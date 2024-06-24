@@ -67,9 +67,8 @@ function AllTodo() {
                   <div
                   className='task-status'
                   onClick={() => completeHandler(todo)}
-                  style={{
-                
-                    height: '100%',
+                  style={{       
+                    
                     backgroundColor: todo.completed ? 'green' : 'rgb(154,193,189)',
                     borderRadius: '5px',
                     color: 'white',
