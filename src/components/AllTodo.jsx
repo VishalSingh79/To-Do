@@ -7,11 +7,23 @@ import { MdDelete } from "react-icons/md";
 
 function AllTodo() {
    const [completed,setCompleted]=useState(false);
-   const [input,setInput]=useState('');
-    const todos=useSelector(state=>state.todos);
-    
+   
+    const [input,setInput]=useState('');
+    let todos=useSelector(state=>state.todos);
+    const searchingTask = useSelector(state=>state.searchTask);
     const dispatch=useDispatch();
    
+    todos =searchingTask ? todos.filter(todo =>
+      todo.text.toLowerCase().includes(searchingTask.toLowerCase())
+    ):
+    todos
+    ;
+    
+
+
+
+
+
     function completeHandler(todo) {
       dispatch(completedTodo(todo));
     }
@@ -35,15 +47,18 @@ function AllTodo() {
   
   return (
     <div className='todo-data'>
+      
       <div className='todo-head'> Todo List</div>
       <div className='todo-tag'>
         <p className='first-tag'>List</p>
         <p>Status</p>
         <p>Edit</p>
-        <p>Close</p>
+        <p>Delete</p>
       </div>
+      
       <div className='todo-content'>
         {
+          todos.length>0 ?
             todos.map((todo)=>(
                 <p key={todo.id} className='task-detail-info'>
                  
@@ -91,6 +106,8 @@ function AllTodo() {
                 </p>
                 
             ))
+            :
+            <p>No Tasks</p>
         }
       </div>
     </div>

@@ -19,12 +19,10 @@ const loadState = () => {
   };
   
   const initialState = {
-    todos: loadState()
+    todos: loadState(),
+    searchTask:null, //for search bar
+    sortCriteria: 'Date'
   };
-  
-// const initialState={
-//     todos:[]
-// }
 
 export const todoSlice=createSlice({
     name:'todo',
@@ -36,6 +34,7 @@ export const todoSlice=createSlice({
                 text:action.payload,
                 completed:false,
                 update:false,
+                date:new Date()
             }
             state.todos.unshift(todo);
             saveState(state.todos);  
@@ -74,9 +73,15 @@ export const todoSlice=createSlice({
                    }
                 )
             }
-        }
+        },
+        setSearchTask: (state, action) => {
+          state.searchTask = action.payload;
+          },
+        setSortStatus: (state, action) => {
+          state.sortCriteria = action.payload;
+        }  
     }
 })
 
-export const {addTodo,removeTodo,completedTodo,updateTodo,updationTodo}=todoSlice.actions;
+export const {addTodo,removeTodo,completedTodo,updateTodo,updationTodo,setSearchTask, setSortStatus}=todoSlice.actions;
 export default todoSlice.reducer
